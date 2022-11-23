@@ -1,0 +1,8 @@
+C:\Users\pavel\Documents\VS22\PR_15\bin\Debug\PR_15.exe.config
+C:\Users\pavel\Documents\VS22\PR_15\bin\Debug\PR_15.exe
+C:\Users\pavel\Documents\VS22\PR_15\bin\Debug\PR_15.pdb
+C:\Users\pavel\Documents\VS22\PR_15\obj\Debug\PR_15.csproj.AssemblyReference.cache
+C:\Users\pavel\Documents\VS22\PR_15\obj\Debug\PR_15.csproj.SuggestedBindingRedirects.cache
+C:\Users\pavel\Documents\VS22\PR_15\obj\Debug\PR_15.csproj.CoreCompileInputs.cache
+C:\Users\pavel\Documents\VS22\PR_15\obj\Debug\PR_15.exe
+C:\Users\pavel\Documents\VS22\PR_15\obj\Debug\PR_15.pdb
