@@ -29,7 +29,7 @@ namespace PR_15
             Console.Write("Практическая работа №15. \nЗдравствуйте!");
             Console.Write("\nУкажите количество плательщиков:");
             uint countPayment = UInt32.Parse(Console.ReadLine());
-
+            uint count = 10;
             Payment[] payments = new Payment[countPayment];
             int i;
             for (i = 0; i < countPayment; i++)
@@ -43,6 +43,7 @@ namespace PR_15
                 payments[i].amount = UInt32.Parse(Console.ReadLine());
               
             }
+            if (payments.Length == 0) throw new ArgumentException("Платежный лист не может быть пустым");
             Payment firstPayment = ((Payment)payments[0]);
             uint maxAmount = firstPayment.amount;
             char[] maxAmountPayer = firstPayment.payeraccount;
