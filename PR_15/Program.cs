@@ -57,7 +57,7 @@ namespace PR_15
                     maxAmountPayer = p.payeraccount;
                 }
             }
-            Console.WriteLine("Плательщик с максимальной суммой:");
+            Console.Write("Плательщик с максимальной суммой:", maxAmountPayer);
             Console.WriteLine(maxAmountPayer);                       
             uint total = 0;
             // Суммируем все платежи
@@ -65,7 +65,7 @@ namespace PR_15
             {
                 total += p.amount;
             }
-            Console.WriteLine("сумма платежей:");
+            Console.Write("сумма платежей:", String.Format("{0:f2}", total));
             Console.WriteLine(String.Format("{0:f2}", total));
 
             //char[] new_payeraccount = new char[20];
