@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,21 @@ namespace PR_15
 {
     class Program
     {
+        static void InfoAboutObjStuct(uint countPayment, Payment[] payments)
+        {
+            int i;
+            for (i = 0; i < countPayment; i++)
+            {
+                payments[i] = new Payment(0);
+                Console.Write("\nРасчетный счет плательщика: ");
+                payments[i].payeraccount = Console.ReadLine().ToCharArray();
+                Console.Write("Расчетный счет получателя:");
+                payments[i].recipienttaccount = Console.ReadLine().ToCharArray();
+                Console.Write("Перечисляемая сумма в рублях:");
+                payments[i].amount = UInt32.Parse(Console.ReadLine());
+
+            }
+        }
         public struct Payment
         {
             public char[] payeraccount;
@@ -22,72 +38,59 @@ namespace PR_15
                 this.amount = 0;
             }
 
-            public string Payeraccount { get; internal set; }
+           
+            
         }
         static void Main(string[] args)
         {
-            Console.Write("Практическая работа №15. \nЗдравствуйте!");
-            Console.Write("\nУкажите количество плательщиков:");
-            uint countPayment = UInt32.Parse(Console.ReadLine());
-            uint count = 10;
-            Payment[] payments = new Payment[countPayment];
-            int i;
-            for (i = 0; i < countPayment; i++)
+            try
             {
-                payments[i] = new Payment(0);
-                Console.Write("\nРасчетный счет плательщика: ");
-                payments[i].payeraccount = Console.ReadLine().ToCharArray();
-                Console.Write("Расчетный счет получателя:");
-                payments[i].recipienttaccount = Console.ReadLine().ToCharArray();
-                Console.Write("Перечисляемая сумма в рублях:");
-                payments[i].amount = UInt32.Parse(Console.ReadLine());
-              
-            }
-            if (payments.Length == 0) throw new ArgumentException("Платежный лист не может быть пустым");
-            Payment firstPayment = ((Payment)payments[0]);
-            uint maxAmount = firstPayment.amount;
-            char[] maxAmountPayer = firstPayment.payeraccount;
-
-            // Находим плательщика с максимальной суммой платежей и записываем его счет
-            foreach (Payment p in payments)
-            {
-                if (p.amount > maxAmount)
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("Практическая работа №15. \nЗдравствуйте!");
+                Console.Write("\nУкажите количество плательщиков:");
+                uint countPayment = UInt32.Parse(Console.ReadLine());
+                Payment[] payments = new Payment[countPayment];
+                if (payments.Length == 0) throw new ArgumentException("Платежный лист не может быть пустым");
+                else
                 {
-                    maxAmount = p.amount;
-                    maxAmountPayer = p.payeraccount;
+                    InfoAboutObjStuct(countPayment, payments);
+                    Payment firstPayment = ((Payment)payments[0]);
+                    uint maxAmount = firstPayment.amount;
+                    char[] maxAmountPayer = firstPayment.payeraccount;
+
+                    // Находим плательщика с максимальной суммой платежей и записываем его счет
+                    foreach (Payment p in payments)
+                    {
+                        if (p.amount > maxAmount)
+                        {
+                            maxAmount = p.amount;
+                            maxAmountPayer = p.payeraccount;
+                        }
+                    }
+                    Console.Write("\nПлательщик с максимальной суммой:", maxAmountPayer);
+                    Console.WriteLine(maxAmountPayer);
+                    uint total = 0;
+                    // Суммируем все платежи
+                    foreach (Payment p in payments)
+                    {
+                        total += p.amount;
+                    }
+                    Console.Write("\nсумма платежей:", String.Format("{0:f2}", total));
+                    Console.WriteLine(String.Format("{0:f2}", total));
+
                 }
+                
             }
-            Console.Write("Плательщик с максимальной суммой:", maxAmountPayer);
-            Console.WriteLine(maxAmountPayer);                       
-            uint total = 0;
-            // Суммируем все платежи
-            foreach (Payment p in payments)
+            catch(ArgumentException fe)
             {
-                total += p.amount;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Ошибка:"+fe.Message);  
             }
-            Console.Write("сумма платежей:", String.Format("{0:f2}", total));
-            Console.WriteLine(String.Format("{0:f2}", total));
-
-            //char[] new_payeraccount = new char[20];
-            //Console.Write("\nПоиск по расчетному счету плательщика ");
-           //new_payeraccount = Console.ReadLine().ToCharArray();
-
-            //bool flag = false;
-           // for (i = 0; i < countPayment; i++)
-            //{
-               // if (String.Compare(new string(payments[i].payeraccount
-                 //   ), new string(new_payeraccount)) == 0)
-               // {
-                  //  Console.Write($"Расчетный счет плательщика: {new string(payments[i].payeraccount)} расчетный счет получателя:{new string(payments[i].recipienttaccount)}," +
-                     //   $"Перечисляемая сумма:{new string(payments[i].amount)}");
-                    //flag = true;
-               //}
-
-            //}
-            //if (flag == false)
-            //{
-             //   Console.Write("\n расчетный счет плательщика по запросу не найден!");
-           // }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Ошибка:" + e.Message);
+            }
             Console.ReadKey();
         }
     }
